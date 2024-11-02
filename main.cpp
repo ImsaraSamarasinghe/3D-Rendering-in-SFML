@@ -3,17 +3,23 @@
 #include <utility> // for std::pair
 #include <cmath>
 #include <iostream>
-#include "square.h"
+#include "square.hpp"
 
-const int width = 800;  // Window width
-const int height = 600; // Window height
+const int width = 400;  // Window width
+const int height = 400; // Window height
 
 int main() {
     // Create a window
-    sf::RenderWindow window(sf::VideoMode(width, height), "Rotating Square Example");
+    sf::RenderWindow window(sf::VideoMode(width, height), "3D Engine");
 
     // Define vertices of the square in 3D
     std::vector<std::vector<double>> vertices = _cube_vertices({0.,0.,0.},100.);
+
+    // set window location to the right of the screen during development
+    window.setPosition(sf::Vector2i(1450, 200));
+
+    // set frame rate limit - 60 fps
+    window.setFramerateLimit(60);
 
     // Rotation angles
     double angle_x = 0.0;
@@ -35,15 +41,16 @@ int main() {
                 window.close();
             }
 
-            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Right){
+            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){
                 rotating = true;
                 current_x = event.mouseButton.x;
                 current_y = event.mouseButton.y;
             }
 
-            if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Right){
+            if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left){ // check for release
                 rotating=false;
             }
+
             if (event.type == sf::Event::MouseMoved && rotating){
                 new_x = event.mouseMove.x;
                 new_y = event.mouseMove.y;
@@ -55,10 +62,11 @@ int main() {
                 current_x = new_x;
                 current_y = new_y;
             }
+
         }
 
         // Clear the window
-        window.clear(sf::Color::Black);
+        window.clear(sf::Color::White);
 
         // Draw the rotating square
         draw_square(window, vertices, angle_x, angle_y, angle_z, viewer_distance, width, height);
