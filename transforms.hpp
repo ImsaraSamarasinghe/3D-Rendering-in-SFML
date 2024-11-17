@@ -13,7 +13,7 @@
  * @param angle_z angle change about the z axis.
  * @return matrix The rotation matrix
  */
-std::vector<std::vector<double>> rotation_matrix(double &angle_x, double &angle_y, double &angle_z) {
+inline std::vector<std::vector<double>> rotation_matrix(double &angle_x, double &angle_y, double &angle_z) {
     std::vector<std::vector<double>> matrix;
     double cos_x = cos(angle_x), sin_x = sin(angle_x);
     double cos_y = cos(angle_y), sin_y = sin(angle_y);
@@ -38,7 +38,7 @@ std::vector<std::vector<double>> rotation_matrix(double &angle_x, double &angle_
  * @param vector 3D coordinate of the vertex as a list ex: [1,2,3].
  * @return std::vector<double> result rotated vertex point as a vector.
  */
-std::vector<double> multiplyMatrixVector(const std::vector<std::vector<double>>& matrix, const std::vector<double>& vector) {
+inline std::vector<double> multiplyMatrixVector(const std::vector<std::vector<double>>& matrix, const std::vector<double>& vector) {
     std::vector<double> result(3, 0.0); // Initialize result vector with zeros
 
     // Perform matrix multiplication
@@ -64,7 +64,7 @@ std::vector<double> multiplyMatrixVector(const std::vector<std::vector<double>>&
  * @param height The height of the screen.
  * 
  */
-sf::Vector2f project_3D_to_2D(const std::vector<double>& point3D, double fov, double viewer_distance, int width, int height) {
+inline sf::Vector2f project_3D_to_2D(const std::vector<double>& point3D, double fov, double viewer_distance, int width, int height) {
     double factor = fov / (viewer_distance + point3D[2]);
     float x = static_cast<float>(point3D[0] * factor + width / 2);
     float y = static_cast<float>(-point3D[1] * factor + height / 2);
