@@ -5,7 +5,7 @@ LIBS = -lsfml-graphics -lsfml-window -lsfml-system
 
 # Files
 TARGET = engine
-SRC = main.cpp square.cpp floor.cpp axis.cpp
+SRC = main.cpp square.cpp floor.cpp axis.cpp torus.cpp
 OBJ = $(SRC:.cpp=.o) # Convert all .cpp files to .o files
 
 # Default target
