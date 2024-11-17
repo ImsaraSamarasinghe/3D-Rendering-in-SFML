@@ -4,16 +4,24 @@
 #include <cmath>
 #include <iostream>
 #include "square.hpp"
+#include "floor.hpp"
+#include "axis.hpp"
 
-const int width = 400;  // Window width
-const int height = 400; // Window height
+const int width = 800;  // Window width
+const int height = 600; // Window height
 
 int main() {
     // Create a window
     sf::RenderWindow window(sf::VideoMode(width, height), "3D Engine");
 
-    // Define vertices of the square in 3D
-    std::vector<std::vector<double>> vertices = _cube_vertices({0.,0.,0.},100.);
+    // Cube class Object
+    Square cube({0., 0., 0.},150.);
+
+    // floor class
+    Floor floor({0.,0.,0.},300.);
+
+    // axis class
+    Axis axis({0.,0.,0.},60.);
 
     // set window location to the right of the screen during development
     window.setPosition(sf::Vector2i(1450, 200));
@@ -25,7 +33,7 @@ int main() {
     double angle_x = 0.0;
     double angle_y = 0.0;
     double angle_z = 0.0;
-    double viewer_distance = 500.0; // Distance from the viewer
+    double viewer_distance = 300.0; // Distance from the viewer
 
     //rotation check
     bool rotating = false;
@@ -63,13 +71,21 @@ int main() {
                 current_y = new_y;
             }
 
+            if (event.type == sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+                viewer_distance = viewer_distance + 1.;
+            }
         }
-
         // Clear the window
         window.clear(sf::Color::White);
 
+        // Draw the floor
+        floor.draw_floor(window, angle_x, angle_y, angle_z, viewer_distance, width, height);
+
+        // draw the axis
+        axis.draw_axis(window, angle_x, angle_y, angle_z, viewer_distance, width, height);
+
         // Draw the rotating square
-        draw_square(window, vertices, angle_x, angle_y, angle_z, viewer_distance, width, height);
+        cube.draw_square(window,angle_x, angle_y, angle_z, viewer_distance, width, height);
 
         // Display everything
         window.display();
