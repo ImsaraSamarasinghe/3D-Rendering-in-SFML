@@ -5,19 +5,19 @@ LIBS = -lsfml-graphics -lsfml-window -lsfml-system
 
 # Files
 TARGET = engine
-SRC = main.cpp
-OBJ = main.o
+SRC = main.cpp square.cpp floor.cpp axis.cpp
+OBJ = $(SRC:.cpp=.o) # Convert all .cpp files to .o files
 
 # Default target
 default: $(TARGET)
 
-# Compile main.cpp to main.o
-$(OBJ): $(SRC)
-	$(CXX) $(CXXFLAGS) -c $(SRC) -o $(OBJ)
+# Compile source files to object files
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Link main.o to create the executable
+# Link object files to create the executable
 $(TARGET): $(OBJ)
-	$(CXX) $(OBJ) $(TRANSOBJ) -o $(TARGET) $(LIBS)
+	$(CXX) $(OBJ) -o $(TARGET) $(LIBS)
 
 # Run the executable
 run: $(TARGET)
