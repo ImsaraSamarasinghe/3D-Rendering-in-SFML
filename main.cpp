@@ -6,6 +6,7 @@
 #include "square.hpp"
 #include "floor.hpp"
 #include "axis.hpp"
+#include "torus.hpp"
 
 const int width = 800;  // Window width
 const int height = 600; // Window height
@@ -14,8 +15,9 @@ int main() {
     // Create a window
     sf::RenderWindow window(sf::VideoMode(width, height), "3D Engine");
 
-    // Cube class Object
-    Square cube({0., 0., 0.},150.);
+
+    // Torus class object
+    Torus torus({0.,150.,0.}, 100., 50., 50, 20);
 
     // floor class
     Floor floor({0.,0.,0.},300.);
@@ -84,8 +86,8 @@ int main() {
         // draw the axis
         axis.draw_axis(window, angle_x, angle_y, angle_z, viewer_distance, width, height);
 
-        // Draw the rotating square
-        cube.draw_square(window,angle_x, angle_y, angle_z, viewer_distance, width, height);
+
+        torus.draw_torus(window, angle_x, angle_y, angle_z, viewer_distance, width, height);
 
         // Display everything
         window.display();
